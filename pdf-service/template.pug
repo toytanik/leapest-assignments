@@ -1,0 +1,21 @@
+// Use !{var} to use unescaped conent
+style(type="text/css") !{compiledStyle}
+ 
+p Company: #{company.name}
+span Period: #{from} - #{to}
+
+table
+    thead
+        tr
+            th Country
+            th Occurrences
+            th Percentage
+    tbody
+        each line in records
+            tr  
+                td #{line.country}
+                td #{line.total}
+                td #{(line.percentage * 100).toFixed(2)} %
+        tr
+            td Total
+            td(colspan="2" style={'text-align': 'right'}) #{overall}
