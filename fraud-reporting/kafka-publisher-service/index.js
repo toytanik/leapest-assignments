@@ -7,9 +7,14 @@ const client = new kafka.KafkaClient({ kafkaHost: KAFKA_HOST });
 const producer = new kafka.Producer(client);
 
 const COUNTRIES = ['bg', 'gb', 'de', 'nl', 'in', 'jp', 'dk', 'se'];
+const COMPANIES = ['facebook', 'mastercard', 'microsoft', 'sg-group', 'bank', 'softuni'];
 
 const getRandomCountry = () => {
     return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+}
+
+const getRandomCompany = () => {
+    return COMPANIES[Math.floor(Math.random() * COMPANIES.length)];
 }
 
 const getRandomInt = (min, max) => {
@@ -21,12 +26,16 @@ const getRandomInt = (min, max) => {
 const getRandomCC = () => {
     const parts = new Array(4).fill(0)
         .map(() => new Array(4).fill(0)
-                .map(() => getRandomInt(0, 9))
-                .join('')
+            .map(() => getRandomInt(0, 9))
+            .join('')
         );
-        
+
     return parts.join(' ');
 }
+
+const getRandomDate = (start, end) => {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+};
 
 producer.on('ready', () => {
     const readline = require('readline');
@@ -37,7 +46,13 @@ producer.on('ready', () => {
             process.exit();
             return;
         } else if (key && key.name === 'return') {
-            const payload = { country: getRandomCountry(), card: getRandomCC() };;
+            const payload = { 
+                country: getRandomCountry(), 
+                card: getRandomCC(), 
+                company: getRandomCompany(), 
+                date: getRandomDate(new Date(2019, 1, 1), new Date()).toISOString() 
+            };
+
             console.log('Preparing to publish payload: ', payload);
             producer.send([{
                 topic: PRODUCER_TOPIC,
