@@ -11,7 +11,7 @@ app.post('/api/generate', (req, res) => {
     const options = {
         htmlTemplatePath: path.resolve(__dirname, 'template.pug'),
 
-        // Here you put an object according to https://github.com/sass/node-sass#options 
+        // Here you put an object according to https://github.com/sass/node-sass#options
         styleOptions: {
             file: path.resolve(__dirname, 'template.scss')
         },
@@ -36,4 +36,5 @@ app.post('/api/generate', (req, res) => {
     });
 })
 
-app.listen(4000, () => console.log(`PDF service listing on port ${4000}! 🚀`));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`PDF service listing on port ${PORT}! 🚀`));
