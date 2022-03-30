@@ -4,6 +4,7 @@ import com.edcast.interwiev.frauddetection.exception.FraudAlreadyExist;
 import com.edcast.interwiev.frauddetection.exception.FraudNotFoundException;
 import com.edcast.interwiev.frauddetection.exception.IllegalInputFormatError;
 import com.edcast.interwiev.frauddetection.model.FraudDetail;
+import com.edcast.interwiev.frauddetection.model.FraudDetailRequest;
 import com.edcast.interwiev.frauddetection.repository.FraudDetailRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,14 +27,8 @@ public class FraudDetectionService {
         if(fraudDetail.getCard().isBlank() && fraudDetail.getCompany().isEmpty()){
             throw new IllegalInputFormatError("FraudDetail data is empty!!");
         }
-        Optional<FraudDetail> getFraud = fraudDetailRepository
-                .findById(fraudDetail.getId());
-
-        if (getFraud.isPresent()) {
-            throw new FraudAlreadyExist("Fraud already exist");
-        } else {
             return fraudDetailRepository.save(fraudDetail);
-        }
+
     }
 
     public Page<FraudDetail> getAllFrauds(int pageIndex, int pageSize) {
@@ -54,5 +49,9 @@ public class FraudDetectionService {
         } else {
             throw new FraudNotFoundException("FraudDetail not found!!");
         }
+    }
+
+    public Boolean crateAPdfFile(FraudDetailRequest fraudDetailRequest) {
+        return null;
     }
 }

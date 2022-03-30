@@ -2,6 +2,7 @@ package com.edcast.interwiev.frauddetection.controller;
 
 
 import com.edcast.interwiev.frauddetection.model.FraudDetail;
+import com.edcast.interwiev.frauddetection.model.FraudDetailRequest;
 import com.edcast.interwiev.frauddetection.service.FraudDetectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +25,13 @@ public class FraudDetectionController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<Page<FraudDetail>> getCustomerByUserName(@RequestParam int pageIndex, @RequestParam int pageSize) {
+    public ResponseEntity<Page<FraudDetail>> getAllFrauds(@RequestParam int pageIndex, @RequestParam int pageSize) {
         return ResponseEntity.ok(fraudDetectionService.getAllFrauds(pageIndex, pageSize));
     }
 
     @PostMapping("/report/generate")
-    public ResponseEntity<Page<FraudDetail>> getAllCustomer(@RequestParam int pageIndex, @RequestParam int pageSize) {
-        return ResponseEntity.ok(fraudDetectionService.getAllFrauds(pageIndex, pageSize));
+    public ResponseEntity<Boolean> generateAPdf(FraudDetailRequest fraudDetailRequest) {
+        return ResponseEntity.ok(fraudDetectionService.crateAPdfFile(fraudDetailRequest));
     }
 
     @GetMapping("/report/{id}")
