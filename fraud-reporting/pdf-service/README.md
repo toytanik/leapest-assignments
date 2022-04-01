@@ -5,7 +5,7 @@ The service exposes a RESTful endpoint that takes fraud event data and generates
 
 ## Prerequisites
 
-- Node v10.0+
+- Node v10.0+ until 14.7 (it is not working for node 16)
 
 ## Build
 
