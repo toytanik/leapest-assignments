@@ -1,15 +1,15 @@
 package com.edcast.interwiev.frauddetection.model;
+
 import lombok.*;
 
+import java.util.Map;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FraudDetailRequest {
+public class PayloadResponse {
 
-    private String from;
-    private String to;
-    private String company;
+    private Map<String,File> data;
 }

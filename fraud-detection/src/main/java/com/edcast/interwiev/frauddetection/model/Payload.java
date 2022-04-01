@@ -1,5 +1,7 @@
 package com.edcast.interwiev.frauddetection.model;
+
 import lombok.*;
+import java.util.Set;
 
 
 @Getter
@@ -7,9 +9,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FraudDetailRequest {
+public class Payload {
 
+    private Company company;
+    private Set<Record> records;
     private String from;
     private String to;
-    private String company;
+    private Integer overall;
 }
